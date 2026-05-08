@@ -16,7 +16,7 @@ export default function EditorPage() {
     <main className="min-h-screen p-6">
       <header className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Editor Workspace</h1>
-        <button onClick={load} className="rounded-xl bg-indigo-500 px-4 py-2 text-sm font-semibold hover:bg-indigo-400">{ready ? `Engine Ready (${progress}%)` : 'Load FFmpeg Engine'}</button>
+        <button onClick={load} className="rounded-xl bg-indigo-500 px-4 py-2 text-sm font-semibold hover:bg-indigo-400">{ready ? `Processing Ready (${progress}%)` : 'Enable Processing'}</button>
       </header>
       <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
         <MediaLibrary />
