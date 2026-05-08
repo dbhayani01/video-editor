@@ -1,7 +1,15 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  experimental: { typedRoutes: true }
+  experimental: { typedRoutes: true },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      canvas: false
+    };
+
+    return config;
+  }
 };
 
 export default nextConfig;
