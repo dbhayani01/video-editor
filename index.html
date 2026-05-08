@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiteCut Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>LiteCut Studio</h1>
+      <p>Fast browser video editing: trim, merge, mute, music overlay, speed, and export.</p>
+    </header>
+
+    <section class="panel">
+      <h2>1) Import Clips</h2>
+      <input id="videoInput" type="file" accept="video/*" multiple />
+      <ul id="clipList" class="clip-list"></ul>
+    </section>
+
+    <section class="panel grid">
+      <div>
+        <h2>2) Trim Single Clip</h2>
+        <label>Clip
+          <select id="trimClip"></select>
+        </label>
+        <label>Start (seconds)
+          <input id="trimStart" type="number" value="0" min="0" step="0.1" />
+        </label>
+        <label>End (seconds)
+          <input id="trimEnd" type="number" value="10" min="0" step="0.1" />
+        </label>
+        <button id="trimBtn">Trim Selected Clip</button>
+      </div>
+
+      <div>
+        <h2>3) Merge Clips</h2>
+        <p class="hint">Clips are merged in listed order.</p>
+        <button id="mergeBtn">Merge All Clips</button>
+      </div>
+    </section>
+
+    <section class="panel grid">
+      <div>
+        <h2>4) Audio Tools</h2>
+        <label>
+          <input id="muteVideo" type="checkbox" />
+          Mute final video audio
+        </label>
+        <label>Background music (optional)
+          <input id="musicInput" type="file" accept="audio/*" />
+        </label>
+        <label>Music volume (0-1)
+          <input id="musicVolume" type="number" min="0" max="1" step="0.05" value="0.35" />
+        </label>
+      </div>
+
+      <div>
+        <h2>5) Quick Effects</h2>
+        <label>Playback speed
+          <select id="speed">
+            <option value="1">1x (normal)</option>
+            <option value="0.5">0.5x (slow)</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2x</option>
+          </select>
+        </label>
+        <label>Rotation
+          <select id="rotate">
+            <option value="0">0°</option>
+            <option value="1">90° clockwise</option>
+            <option value="2">180°</option>
+            <option value="3">90° counter-clockwise</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>6) Process & Export</h2>
+      <button id="processBtn" class="primary">Create Final Video</button>
+      <p id="status">Ready.</p>
+      <video id="preview" controls></video>
+      <a id="downloadLink" download="edited-video.mp4">Download Result</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
