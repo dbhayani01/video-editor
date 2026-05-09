@@ -15,7 +15,6 @@ export function PreviewCanvas() {
   const setIsPlaying = useEditorStore((s) => s.setIsPlaying);
 
   const activeMediaId = selectedMediaId ?? timeline.find((c) => c.id === selectedClipIds[0])?.mediaId;
-  const selectedClip = timeline.find((c) => c.id === selectedClipIds[0]);
   const activeMedia = useMemo(() => media.find((m) => m.id === activeMediaId), [media, activeMediaId]);
 
   useEffect(() => {
@@ -28,14 +27,6 @@ export function PreviewCanvas() {
     video.pause();
   }, [isPlaying]);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !selectedClip) return;
-    if (video.currentTime < selectedClip.start || video.currentTime > selectedClip.end) {
-      video.currentTime = selectedClip.start;
-    }
-  }, [selectedClip?.id, selectedClip?.start, selectedClip?.end]);
-
   return (
     <section className="glass rounded-2xl p-4">
       <h3 className="mb-3 font-semibold">Preview</h3>
@@ -46,16 +37,7 @@ export function PreviewCanvas() {
             src={activeMedia.url}
             controls
             className="h-auto w-full rounded"
-            onTimeUpdate={(e) => {
-              const time = e.currentTarget.currentTime;
-              setPreviewTime(time);
-              if (selectedClip && time >= selectedClip.end) {
-                e.currentTarget.pause();
-                e.currentTarget.currentTime = selectedClip.start;
-                setIsPlaying(false);
-              }
-            }}
-            onEnded={() => setIsPlaying(false)}
+            onTimeUpdate={(e) => setPreviewTime(e.currentTarget.currentTime)}
             onPause={() => setIsPlaying(false)}
             onPlay={() => setIsPlaying(true)}
           />

@@ -9,14 +9,12 @@ export function Toolbar() {
   const timeline = useEditorStore((s) => s.timeline);
   const isPlaying = useEditorStore((s) => s.isPlaying);
   const setIsPlaying = useEditorStore((s) => s.setIsPlaying);
-  const splitClip = useEditorStore((s) => s.splitClip);
-  const previewTime = useEditorStore((s) => s.previewTime);
 
   const selectedClip = timeline.find((clip) => clip.id === selectedClipIds[0]);
 
   const actions = [
-    { icon: Scissors, label: 'Split at Playhead', onClick: () => selectedClip && splitClip(selectedClip.id, previewTime) },
-    { icon: Crop, label: 'Trim to Playhead', onClick: () => selectedClip && updateClip(selectedClip.id, { end: Math.max(selectedClip.start + 0.1, previewTime) }) },
+    { icon: Scissors, label: 'Trim -1s', onClick: () => selectedClip && updateClip(selectedClip.id, { end: Math.max(selectedClip.start + 1, selectedClip.end - 1) }) },
+    { icon: Crop, label: 'Extend +1s', onClick: () => selectedClip && updateClip(selectedClip.id, { end: selectedClip.end + 1 }) },
     { icon: RotateCw, label: isPlaying ? 'Pause' : 'Play', onClick: () => setIsPlaying(!isPlaying) },
     { icon: Volume2, label: 'Audio (Soon)', onClick: () => undefined }
   ];
